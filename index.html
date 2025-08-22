@@ -89,7 +89,7 @@
                         Criar Meu Catálogo Inteligente
                     </a>
                 </div>
-                 <!-- Elemento Interativo Adicionado -->
+                 <!-- Elemento Interativo -->
                  <div class="mt-16 animate-slide-in-up" style="animation-delay: 0.6s;">
                     <div class="max-w-sm mx-auto bg-gray-800 rounded-[40px] border-[10px] border-gray-800 shadow-2xl overflow-hidden relative aspect-[9/19.5]">
                         <div class="absolute top-0 left-0 w-full h-8 bg-gray-800 z-10 flex justify-center items-center">
@@ -321,31 +321,15 @@
                         <span id="file-label">Anexar arquivo do catálogo</span>
                     </label>
                     <input id="file-upload" type="file" class="hidden" accept="image/*">
-                    <p class="text-xs text-center text-brand-subtle">Dica: Para a prévia com IA, use uma imagem nítida e bem iluminada.</p>
-                    <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
-                        <button type="submit" class="w-full bg-gray-600 hover:bg-gray-500 text-white font-bold py-3 px-4 rounded-lg transition-transform transform hover:scale-105">Enviar Manualmente</button>
-                        <button type="button" id="ai-preview-button" disabled class="w-full bg-brand-primary hover:bg-orange-600 text-white font-bold py-3 px-4 rounded-lg transition-transform transform hover:scale-105 disabled:bg-gray-500 disabled:cursor-not-allowed flex items-center justify-center">
-                            ✨ Ver Prévia com IA
-                        </button>
-                    </div>
+                    <button type="submit" class="w-full bg-brand-primary hover:bg-orange-600 text-white font-bold py-3 px-4 rounded-lg transition-transform transform hover:scale-105">
+                        Enviar para Teste Grátis
+                    </button>
                 </form>
             </div>
             <!-- Visão de Sucesso do Envio -->
             <div id="submission-success" class="hidden text-center">
                  <h2 class="text-2xl font-bold text-green-400 mb-3">Enviado com Sucesso!</h2>
                  <p class="text-brand-subtle">Recebemos suas informações. Em breve, nossa equipe entrará em contato pelo WhatsApp para iniciar seu teste gratuito. Fique de olho!</p>
-            </div>
-            <!-- Visão da Prévia da IA -->
-            <div id="ai-preview-container" class="hidden">
-                 <h2 class="text-2xl font-bold text-brand-primary mb-3 text-center">✨ Prévia Gerada por IA</h2>
-                 <p id="ai-status" class="text-brand-subtle mb-4 text-center">Analisando seu catálogo... Isso pode levar alguns segundos.</p>
-                 <div id="ai-preview-content" class="max-h-[60vh] overflow-y-auto bg-brand-background p-4 rounded-lg space-y-6">
-                    <!-- Conteúdo da prévia será inserido aqui -->
-                 </div>
-                 <div id="ai-preview-error" class="hidden text-center text-red-400 p-4 bg-red-900/50 rounded-lg">
-                    <p>Não foi possível analisar a imagem. Por favor, tente uma imagem com maior qualidade ou use o envio manual.</p>
-                 </div>
-                 <button id="confirm-ai-preview" class="mt-4 w-full bg-green-600 hover:bg-green-500 text-white font-bold py-3 px-4 rounded-lg">Gostei! Quero a versão completa</button>
             </div>
         </div>
     </div>
@@ -361,13 +345,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const submissionFormContainer = document.getElementById('submission-form-container');
     const submissionForm = document.getElementById('submission-form');
     const submissionSuccess = document.getElementById('submission-success');
-    
-    const aiPreviewContainer = document.getElementById('ai-preview-container');
-    const aiPreviewBtn = document.getElementById('ai-preview-button');
-    const aiStatus = document.getElementById('ai-status');
-    const aiPreviewContent = document.getElementById('ai-preview-content');
-    const aiPreviewError = document.getElementById('ai-preview-error');
-    const confirmAiPreviewBtn = document.getElementById('confirm-ai-preview');
 
     const fileUpload = document.getElementById('file-upload');
     const fileLabel = document.getElementById('file-label');
@@ -398,125 +375,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const openSubmissionPopup = () => {
         submissionFormContainer.classList.remove('hidden');
         submissionSuccess.classList.add('hidden');
-        aiPreviewContainer.classList.add('hidden');
         submissionForm.reset();
         fileLabel.textContent = 'Anexar arquivo do catálogo';
-        aiPreviewBtn.disabled = true;
         showPopup(submissionPopup);
-    };
-
-    // --- LÓGICA DA API GEMINI ---
-    const API_KEY = ""; // Deixe em branco, será gerenciado pelo ambiente
-    const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${API_KEY}`;
-
-    const fileToBase64 = (file) => new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => resolve(reader.result.split(',')[1]);
-        reader.onerror = error => reject(error);
-    });
-
-    const generatePreviewFromImage = async (base64ImageData) => {
-        const prompt = "Analise a imagem deste cardápio/catálogo. Extraia as categorias dos produtos (ex: Lanches, Bebidas, Pizzas). Para cada categoria, liste os itens com seu nome, uma breve descrição (se houver) e o preço. Se um item não tiver descrição, deixe o campo em branco. Ignore qualquer texto que não seja parte do menu, como anúncios ou informações de contato. Formate a resposta como um JSON, seguindo o esquema fornecido.";
-
-        const payload = {
-            contents: [{
-                parts: [
-                    { text: prompt },
-                    { inline_data: { mime_type: "image/jpeg", data: base64ImageData } }
-                ]
-            }],
-            generation_config: {
-                response_mime_type: "application/json",
-                response_schema: {
-                    type: "ARRAY",
-                    items: {
-                        type: "OBJECT",
-                        properties: {
-                            category: { type: "STRING" },
-                            items: {
-                                type: "ARRAY",
-                                items: {
-                                    type: "OBJECT",
-                                    properties: {
-                                        name: { type: "STRING" },
-                                        description: { type: "STRING" },
-                                        price: { type: "STRING" }
-                                    },
-                                    required: ["name", "price"]
-                                }
-                            }
-                        },
-                        required: ["category", "items"]
-                    }
-                }
-            }
-        };
-
-        // Implementa retry com backoff exponencial
-        let response;
-        for (let i = 0; i < 3; i++) {
-            try {
-                response = await fetch(API_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-                if (response.ok) break;
-            } catch (error) {
-                if (i === 2) throw error;
-            }
-            await new Promise(res => setTimeout(res, 1000 * Math.pow(2, i)));
-        }
-
-        if (!response.ok) {
-            let errorBody = 'Could not read error body';
-            try {
-                errorBody = await response.json();
-            } catch (e) { /* Ignore if body is not JSON */ }
-            console.error("API Error Body:", errorBody);
-            throw new Error(`API Error: ${response.status} ${response.statusText}`);
-        }
-
-        const result = await response.json();
-        const contentPart = result.candidates?.[0]?.content?.parts?.[0]?.text;
-        if (!contentPart) {
-            throw new Error("Resposta da API inválida ou vazia.");
-        }
-        return JSON.parse(contentPart);
-    };
-    
-    const renderPreview = (data) => {
-        aiPreviewContent.innerHTML = ''; // Limpa conteúdo anterior
-        if (!data || data.length === 0) {
-            aiStatus.textContent = "Não foi possível extrair itens do seu catálogo.";
-            return;
-        }
-
-        data.forEach(category => {
-            const categoryTitle = document.createElement('h3');
-            categoryTitle.className = "text-2xl font-bold text-brand-secondary border-b-2 border-brand-primary pb-2 mb-4";
-            categoryTitle.textContent = category.category;
-            aiPreviewContent.appendChild(categoryTitle);
-
-            const itemsGrid = document.createElement('div');
-            itemsGrid.className = "grid grid-cols-1 gap-3";
-            
-            category.items.forEach(item => {
-                const itemCard = document.createElement('div');
-                itemCard.className = "bg-brand-surface rounded-lg p-3 flex items-center justify-between";
-                itemCard.innerHTML = `
-                    <div class="flex-1 pr-2">
-                        <h4 class="font-semibold text-brand-text">${item.name}</h4>
-                        ${item.description ? `<p class="text-xs text-brand-subtle">${item.description}</p>` : ''}
-                        <p class="font-bold text-brand-secondary mt-1">${/^[0-9,.]+$/.test(item.price) ? `R$ ${item.price}`: item.price}</p>
-                    </div>
-                    <button disabled class="bg-gray-500 text-white font-bold py-2 px-3 rounded-lg text-sm cursor-not-allowed">Pedir</button>
-                `;
-                itemsGrid.appendChild(itemCard);
-            });
-            aiPreviewContent.appendChild(itemsGrid);
-        });
     };
 
     // --- EVENT LISTENERS ---
@@ -527,52 +388,12 @@ document.addEventListener('DOMContentLoaded', () => {
     fileUpload.addEventListener('change', () => {
         if (fileUpload.files.length > 0) {
             fileLabel.textContent = fileUpload.files[0].name;
-            aiPreviewBtn.disabled = false;
         } else {
             fileLabel.textContent = 'Anexar arquivo do catálogo';
-            aiPreviewBtn.disabled = true;
         }
     });
 
-    aiPreviewBtn.addEventListener('click', async () => {
-        const file = fileUpload.files[0];
-        if (!file) return;
-
-        submissionFormContainer.classList.add('hidden');
-        aiPreviewContainer.classList.remove('hidden');
-        aiPreviewError.classList.add('hidden');
-        aiStatus.textContent = "Analisando seu catálogo... Isso pode levar alguns segundos.";
-        aiPreviewContent.innerHTML = '<div class="w-8 h-8 border-4 border-dashed rounded-full animate-spin border-brand-primary mx-auto"></div>';
-
-        try {
-            const base64 = await fileToBase64(file);
-            const data = await generatePreviewFromImage(base64);
-            renderPreview(data);
-            aiStatus.textContent = "Esta é uma prévia de como seu catálogo pode ficar!";
-        } catch (error) {
-            console.error("Erro ao gerar prévia com IA:", error);
-            aiStatus.textContent = "Ocorreu um erro ao gerar a prévia.";
-            aiPreviewContent.innerHTML = '';
-            const errorMessageElement = aiPreviewError.querySelector('p');
-
-            if (error.message.includes("API Error")) {
-                errorMessageElement.textContent = "A IA não conseguiu processar a imagem. Tente uma imagem mais nítida ou com texto mais legível. Se o erro persistir, use o envio manual.";
-            } else if (error.message.includes("inválida ou vazia")) {
-                errorMessageElement.textContent = "A IA não encontrou itens válidos no catálogo. Verifique se a imagem está clara e tente novamente ou use o envio manual.";
-            } else {
-                errorMessageElement.textContent = "Não foi possível analisar a imagem. Por favor, tente uma imagem com maior qualidade ou use o envio manual.";
-            }
-            
-            aiPreviewError.classList.remove('hidden');
-        }
-    });
-
-    confirmAiPreviewBtn.addEventListener('click', () => {
-        // Apenas envia o formulário como se fosse o envio manual
-        submissionForm.requestSubmit(submissionForm.querySelector('button[type="submit"]'));
-    });
-
-    // Envio para o backend no Render (Envio Manual)
+    // Envio para o backend no Render
     submissionForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         const submitButton = e.target.querySelector('button[type="submit"]');
@@ -609,21 +430,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 throw new Error(errorData.message || 'Falha no envio. Tente novamente.');
             }
             
-            aiPreviewContainer.classList.add('hidden');
             submissionFormContainer.classList.add('hidden');
             submissionSuccess.classList.remove('hidden');
 
             setTimeout(() => {
                 hidePopup(submissionPopup);
                 submitButton.disabled = false;
-                submitButton.textContent = 'Enviar Manualmente';
+                submitButton.textContent = 'Enviar para Teste Grátis';
             }, 5000);
 
         } catch (error) {
             console.error('Erro:', error);
             alert(error.message);
             submitButton.disabled = false;
-            submitButton.textContent = 'Enviar Manualmente';
+            submitButton.textContent = 'Enviar para Teste Grátis';
         }
     });
 
