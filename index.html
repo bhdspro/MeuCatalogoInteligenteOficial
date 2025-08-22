@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meu Catálogo Inteligente - Transforme seu catálogo em uma máquina de vendas</title>
+    <!-- Favicon Premium Adicionado -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2220%22 fill=%22%231F2937%22></rect><path d=%22M30 35h40M30 50h40M30 65h25%22 stroke=%22%23F97316%22 stroke-width=%228%22 stroke-linecap=%22round%22/></svg>">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script>
@@ -28,12 +30,20 @@
                         'fade-out': 'fadeOut 0.5s ease-in forwards',
                         'slide-in-up': 'slideInUp 0.5s ease-out forwards',
                         'slide-out-down': 'slideOutDown 0.5s ease-in forwards',
+                        'auto-scroll': 'auto-scroll 25s linear infinite',
                     },
                     keyframes: {
                         fadeIn: { '0%': { opacity: 0 }, '100%': { opacity: 1 } },
                         fadeOut: { '0%': { opacity: 1 }, '100%': { opacity: 0 } },
                         slideInUp: { '0%': { transform: 'translateY(50px)', opacity: 0 }, '100%': { transform: 'translateY(0)', opacity: 1 } },
                         slideOutDown: { '0%': { transform: 'translateY(0)', opacity: 1 }, '100%': { transform: 'translateY(100%)', opacity: 0 } },
+                        'auto-scroll': {
+                            '0%': { transform: 'translateY(0)' },
+                            '45%': { transform: 'translateY(-60%)' },
+                            '50%': { transform: 'translateY(-60%)' },
+                            '95%': { transform: 'translateY(0)' },
+                            '100%': { transform: 'translateY(0)' },
+                        }
                     }
                 }
             }
@@ -56,8 +66,8 @@
 
     <!-- Cabeçalho -->
     <header class="bg-brand-background/80 backdrop-blur-sm sticky top-0 z-40">
-        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <h1 class="text-2xl font-bold text-white">Meu Catálogo <span class="text-brand-primary">Inteligente</span></h1>
+        <nav class="container mx-auto px-4 sm:px-6 py-4 flex justify-between items-center">
+            <h1 class="text-xl sm:text-2xl font-bold text-white">Meu Catálogo <span class="text-brand-primary">Inteligente</span></h1>
             <a href="#pricing" class="hidden sm:inline-block bg-brand-primary hover:bg-orange-600 text-white font-bold py-2 px-5 rounded-lg transition-transform transform hover:scale-105">
                 Peça o Seu Agora
             </a>
@@ -66,41 +76,87 @@
 
     <main>
         <!-- Seção Hero -->
-        <section class="py-20 sm:py-32">
-            <div class="container mx-auto px-6 text-center">
-                <h2 class="text-4xl md:text-6xl font-extrabold text-white leading-tight animate-slide-in-up">
+        <section class="py-16 sm:py-20 md:py-32">
+            <div class="container mx-auto px-4 sm:px-6 text-center">
+                <h2 class="text-4xl sm:text-5xl md:text-6xl font-extrabold text-white leading-tight animate-slide-in-up">
                     Seu catálogo em PDF ou imagem está <span class="text-gradient">perdendo vendas</span>.
                 </h2>
-                <p class="mt-6 max-w-3xl mx-auto text-lg text-brand-subtle animate-slide-in-up" style="animation-delay: 0.2s;">
+                <p class="mt-6 max-w-3xl mx-auto text-base sm:text-lg text-brand-subtle animate-slide-in-up" style="animation-delay: 0.2s;">
                     Transforme seu catálogo estático em uma experiência interativa que impressiona clientes e converte cliques em pedidos diretos no seu WhatsApp.
                 </p>
-                <div class="mt-10 flex justify-center gap-4 animate-slide-in-up" style="animation-delay: 0.4s;">
-                    <a href="#pricing" class="bg-brand-primary hover:bg-orange-600 text-white font-bold py-3 px-8 rounded-lg text-lg transition-transform transform hover:scale-105">
+                <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 animate-slide-in-up" style="animation-delay: 0.4s;">
+                    <a href="#pricing" class="w-full sm:w-auto bg-brand-primary hover:bg-orange-600 text-white font-bold py-3 px-8 rounded-lg text-lg transition-transform transform hover:scale-105">
                         Criar Meu Catálogo Inteligente
                     </a>
                 </div>
+                 <!-- Elemento Interativo Adicionado -->
                  <div class="mt-16 animate-slide-in-up" style="animation-delay: 0.6s;">
-                    <img src="https://i.imgur.com/uS8Wp9s.png" alt="Mockup de um celular mostrando o catálogo inteligente" class="mx-auto rounded-2xl shadow-2xl max-w-4xl w-full">
+                    <div class="max-w-sm mx-auto bg-gray-800 rounded-[40px] border-[10px] border-gray-800 shadow-2xl overflow-hidden relative aspect-[9/19.5]">
+                        <div class="absolute top-0 left-0 w-full h-8 bg-gray-800 z-10 flex justify-center items-center">
+                            <div class="w-20 h-4 bg-black rounded-full"></div>
+                        </div>
+                        <div class="h-full w-full overflow-hidden">
+                            <div class="bg-brand-background text-brand-text p-4 animate-auto-scroll">
+                                <!-- Header do Catálogo Simulado -->
+                                <div class="text-center mb-6">
+                                    <h1 class="text-2xl font-bold text-brand-primary">Seu Negócio Aqui</h1>
+                                    <p class="text-brand-subtle text-sm mt-1">Descrição do seu negócio</p>
+                                </div>
+                                <!-- Itens do Catálogo Simulado -->
+                                <div class="space-y-6">
+                                    <div>
+                                        <h2 class="text-xl font-bold text-brand-secondary border-b-2 border-brand-primary pb-1 mb-3">Lanches</h2>
+                                        <div class="space-y-3">
+                                            <div class="bg-brand-surface rounded-lg p-3 flex justify-between items-center"><div class="pr-2"> <h3 class="font-semibold">X-Burger Especial</h3> <p class="text-sm text-brand-secondary font-bold">R$ 25,00</p></div><button class="bg-brand-primary text-white font-bold py-1 px-3 rounded-md text-sm">Pedir</button></div>
+                                            <div class="bg-brand-surface rounded-lg p-3 flex justify-between items-center"><div class="pr-2"> <h3 class="font-semibold">X-Bacon Duplo</h3> <p class="text-sm text-brand-secondary font-bold">R$ 28,50</p></div><button class="bg-brand-primary text-white font-bold py-1 px-3 rounded-md text-sm">Pedir</button></div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <h2 class="text-xl font-bold text-brand-secondary border-b-2 border-brand-primary pb-1 mb-3">Bebidas</h2>
+                                        <div class="space-y-3">
+                                            <div class="bg-brand-surface rounded-lg p-3 flex justify-between items-center"><div class="pr-2"> <h3 class="font-semibold">Refrigerante Lata</h3> <p class="text-sm text-brand-secondary font-bold">R$ 5,00</p></div><button class="bg-brand-primary text-white font-bold py-1 px-3 rounded-md text-sm">Pedir</button></div>
+                                            <div class="bg-brand-surface rounded-lg p-3 flex justify-between items-center"><div class="pr-2"> <h3 class="font-semibold">Suco Natural</h3> <p class="text-sm text-brand-secondary font-bold">R$ 8,00</p></div><button class="bg-brand-primary text-white font-bold py-1 px-3 rounded-md text-sm">Pedir</button></div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <h2 class="text-xl font-bold text-brand-secondary border-b-2 border-brand-primary pb-1 mb-3">Sobremesas</h2>
+                                        <div class="space-y-3">
+                                            <div class="bg-brand-surface rounded-lg p-3 flex justify-between items-center"><div class="pr-2"> <h3 class="font-semibold">Pudim da Casa</h3> <p class="text-sm text-brand-secondary font-bold">R$ 10,00</p></div><button class="bg-brand-primary text-white font-bold py-1 px-3 rounded-md text-sm">Pedir</button></div>
+                                            <div class="bg-brand-surface rounded-lg p-3 flex justify-between items-center"><div class="pr-2"> <h3 class="font-semibold">Mousse de Chocolate</h3> <p class="text-sm text-brand-secondary font-bold">R$ 12,00</p></div><button class="bg-brand-primary text-white font-bold py-1 px-3 rounded-md text-sm">Pedir</button></div>
+                                        </div>
+                                    </div>
+                                    <!-- Itens duplicados para garantir o efeito de scroll infinito -->
+                                    <div>
+                                        <h2 class="text-xl font-bold text-brand-secondary border-b-2 border-brand-primary pb-1 mb-3">Lanches</h2>
+                                        <div class="space-y-3">
+                                            <div class="bg-brand-surface rounded-lg p-3 flex justify-between items-center"><div class="pr-2"> <h3 class="font-semibold">X-Burger Especial</h3> <p class="text-sm text-brand-secondary font-bold">R$ 25,00</p></div><button class="bg-brand-primary text-white font-bold py-1 px-3 rounded-md text-sm">Pedir</button></div>
+                                            <div class="bg-brand-surface rounded-lg p-3 flex justify-between items-center"><div class="pr-2"> <h3 class="font-semibold">X-Bacon Duplo</h3> <p class="text-sm text-brand-secondary font-bold">R$ 28,50</p></div><button class="bg-brand-primary text-white font-bold py-1 px-3 rounded-md text-sm">Pedir</button></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- Seção de Recursos -->
-        <section id="features" class="py-20 bg-brand-surface">
-            <div class="container mx-auto px-6">
-                <div class="text-center mb-16">
-                    <h3 class="text-4xl font-bold text-white">Chega de catálogos que não vendem.</h3>
+        <section id="features" class="py-16 sm:py-20 bg-brand-surface">
+            <div class="container mx-auto px-4 sm:px-6">
+                <div class="text-center mb-12 sm:mb-16">
+                    <h3 class="text-3xl sm:text-4xl font-bold text-white">Chega de catálogos que não vendem.</h3>
                     <p class="mt-4 max-w-2xl mx-auto text-brand-subtle">Seu cliente quer facilidade. Um PDF difícil de ler no celular é o caminho mais curto para ele desistir da compra.</p>
                 </div>
                 <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
                     <!-- Card 1 -->
-                    <div class="bg-brand-background p-8 rounded-2xl text-center">
+                    <div class="bg-brand-background p-6 sm:p-8 rounded-2xl text-center">
                         <svg class="w-12 h-12 mx-auto text-brand-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
                         <h4 class="mt-4 text-xl font-bold text-white">Pedidos no WhatsApp</h4>
                         <p class="mt-2 text-brand-subtle">Com um único clique, seu cliente envia o pedido formatado direto para seu WhatsApp. Sem erros, sem demora.</p>
                     </div>
                     <!-- Card 2 -->
-                    <div class="bg-brand-background p-8 rounded-2xl text-center">
+                    <div class="bg-brand-background p-6 sm:p-8 rounded-2xl text-center">
                         <svg class="w-12 h-12 mx-auto text-brand-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
                         <h4 class="mt-4 text-xl font-bold text-white">Design Premium e Responsivo</h4>
                         <p class="mt-2 text-brand-subtle">Uma aparência profissional que funciona perfeitamente em qualquer dispositivo: celular, tablet ou computador.</p>
@@ -110,10 +166,10 @@
         </section>
 
         <!-- Seção Como Funciona -->
-        <section class="py-20">
-            <div class="container mx-auto px-6">
-                <div class="text-center mb-16">
-                    <h3 class="text-4xl font-bold text-white">Tudo pronto em 3 passos simples.</h3>
+        <section class="py-16 sm:py-20">
+            <div class="container mx-auto px-4 sm:px-6">
+                <div class="text-center mb-12 sm:mb-16">
+                    <h3 class="text-3xl sm:text-4xl font-bold text-white">Tudo pronto em 3 passos simples.</h3>
                 </div>
                 <div class="grid md:grid-cols-3 gap-12 text-center">
                     <div>
@@ -136,21 +192,21 @@
         </section>
         
         <!-- Seção de Preços -->
-        <section id="pricing" class="py-20 bg-brand-surface">
-            <div class="container mx-auto px-6 text-center">
-                <h3 class="text-4xl font-bold text-white">Um preço simples, sem surpresas.</h3>
+        <section id="pricing" class="py-16 sm:py-20 bg-brand-surface">
+            <div class="container mx-auto px-4 sm:px-6 text-center">
+                <h3 class="text-3xl sm:text-4xl font-bold text-white">Um preço simples, sem surpresas.</h3>
                 <p class="mt-4 max-w-2xl mx-auto text-brand-subtle">Sem mensalidades, sem taxas escondidas. O catálogo é seu para sempre.</p>
                 <div class="mt-12 flex justify-center">
-                    <div class="bg-brand-background rounded-2xl p-8 max-w-md w-full border-2 border-brand-primary shadow-lg">
+                    <div class="bg-brand-background rounded-2xl p-6 sm:p-8 max-w-md w-full border-2 border-brand-primary shadow-lg">
                         <h4 class="text-2xl font-bold text-white">Catálogo Inteligente</h4>
                         <p class="mt-4 text-5xl font-extrabold text-white">R$9,90</p>
                         <p class="text-brand-subtle">Taxa única de criação</p>
                         <ul class="mt-8 space-y-4 text-left">
-                            <li class="flex items-center"><svg class="w-6 h-6 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Teste grátis por 7 dias</span></li>
-                            <li class="flex items-center"><svg class="w-6 h-6 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Catálogo seu para sempre</span></li>
-                            <li class="flex items-center"><svg class="w-6 h-6 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Integração com WhatsApp</span></li>
-                            <li class="flex items-center"><svg class="w-6 h-6 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Design responsivo premium</span></li>
-                            <li class="flex items-center"><svg class="w-6 h-6 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Atualizações opcionais por R$4,90</span></li>
+                            <li class="flex items-center"><svg class="w-6 h-6 text-green-500 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Teste grátis por 7 dias</span></li>
+                            <li class="flex items-center"><svg class="w-6 h-6 text-green-500 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Catálogo seu para sempre</span></li>
+                            <li class="flex items-center"><svg class="w-6 h-6 text-green-500 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Integração com WhatsApp</span></li>
+                            <li class="flex items-center"><svg class="w-6 h-6 text-green-500 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Design responsivo premium</span></li>
+                            <li class="flex items-center"><svg class="w-6 h-6 text-green-500 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Atualizações opcionais por R$4,90</span></li>
                         </ul>
                         <button id="cta-pricing-button" class="mt-8 w-full bg-brand-primary hover:bg-orange-600 text-white font-bold py-3 px-4 rounded-lg text-lg transition-transform transform hover:scale-105">
                             Quero Meu Teste Grátis
@@ -161,10 +217,10 @@
         </section>
 
         <!-- Seção FAQ -->
-        <section id="faq" class="py-20">
-            <div class="container mx-auto px-6 max-w-4xl">
-                <div class="text-center mb-16">
-                    <h3 class="text-4xl font-bold text-white">Perguntas Frequentes</h3>
+        <section id="faq" class="py-16 sm:py-20">
+            <div class="container mx-auto px-4 sm:px-6 max-w-4xl">
+                <div class="text-center mb-12 sm:mb-16">
+                    <h3 class="text-3xl sm:text-4xl font-bold text-white">Perguntas Frequentes</h3>
                     <p class="mt-4 max-w-2xl mx-auto text-brand-subtle">Tirando suas principais dúvidas sobre o Catálogo Inteligente.</p>
                 </div>
                 <div class="space-y-4">
@@ -176,7 +232,7 @@
                                 <svg class="w-6 h-6 text-brand-subtle transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                             </summary>
                             <div class="p-5 pt-0 text-brand-subtle">
-                                <p>Não! Nós cuidamos de toda a parte técnica e hospedamos seu catálogo para você. Você receberá um link exclusivo e fácil de compartilhar, como `seunegocio.meucatalogo.digital`.</p>
+                                <p>Não! Nós cuidamos de toda a parte técnica e hospedamos seu catálogo para você. Você receberá um link exclusivo e fácil de compartilhar.</p>
                             </div>
                         </details>
                     </div>
@@ -196,7 +252,7 @@
                     <div class="faq-item bg-brand-surface rounded-lg">
                         <details>
                             <summary class="flex justify-between items-center p-5 cursor-pointer">
-                                <h4 class="text-lg font-semibold text-white">Como funcionam as atualizações de preços ou produtos?</h4>
+                                <h4 class="text-lg font-semibold text-white">Como funcionam as atualizações?</h4>
                                 <svg class="w-6 h-6 text-brand-subtle transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                             </summary>
                             <div class="p-5 pt-0 text-brand-subtle">
@@ -222,12 +278,12 @@
 
 
         <!-- Seção CTA Final -->
-        <section class="py-20">
-            <div class="container mx-auto px-6 text-center">
-                <h3 class="text-4xl font-bold text-white">Pronto para modernizar seu negócio?</h3>
+        <section class="py-16 sm:py-20">
+            <div class="container mx-auto px-4 sm:px-6 text-center">
+                <h3 class="text-3xl sm:text-4xl font-bold text-white">Pronto para modernizar seu negócio?</h3>
                 <p class="mt-4 max-w-2xl mx-auto text-brand-subtle">Deixe a gente criar um catálogo que trabalha por você. Comece seu teste gratuito e veja a diferença.</p>
                 <div class="mt-8">
-                    <button id="cta-final-button" class="bg-brand-primary hover:bg-orange-600 text-white font-bold py-3 px-8 rounded-lg text-lg transition-transform transform hover:scale-105">
+                    <button id="cta-final-button" class="w-full sm:w-auto bg-brand-primary hover:bg-orange-600 text-white font-bold py-3 px-8 rounded-lg text-lg transition-transform transform hover:scale-105">
                         Começar Agora
                     </button>
                 </div>
@@ -237,19 +293,19 @@
 
     <!-- Rodapé -->
     <footer class="bg-brand-surface border-t border-gray-700">
-        <div class="container mx-auto px-6 py-8 text-center text-brand-subtle">
+        <div class="container mx-auto px-4 sm:px-6 py-8 text-center text-brand-subtle">
             <p>&copy; 2025 Meu Catálogo Inteligente. Todos os direitos reservados.</p>
         </div>
     </footer>
 
     <!-- Botão Flutuante do WhatsApp -->
-    <a href="https://wa.me/5543991228540?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20o%20Catálogo%20Inteligente." target="_blank" class="fixed bottom-6 right-6 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg transition-transform transform hover:scale-110 z-30">
+    <a href="https://wa.me/5543991228540?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20o%20Catálogo%20Inteligente." target="_blank" class="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg transition-transform transform hover:scale-110 z-30">
         <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 4.315 1.919 6.066l-1.225 4.485 4.625-1.212zm4.725-7.522c-.219-.109-.982-.483-1.135-.537-.152-.054-.262-.082-.372.082-.109.163-.43.537-.527.648-.1.11-.19.123-.344.069-.152-.054-1.58-1.019-2.533-1.533-.743-.398-1.233-1.018-1.38-1.233-.145-.215-.015-.33.054-.384.068-.054.152-.136.229-.204.077-.068.1-.109.163-.19.064-.081.034-.148-.015-.204-.05-.054-.372-.885-.513-1.201-.139-.308-.28-.266-.372-.271-.09-.006-.199-.006-.308-.006s-.262.027-.4.136c-.138.109-.463.453-.463 1.107 0 .654.477 1.288.542 1.372.065.084 1.178 1.78 2.856 2.515.393.17.69.265.926.338.443.146.82.129 1.107.081.31-.053.982-.401 1.12- .788.139-.386.139-.716.095-.788-.043-.073-.152-.11-.326-.19z"/></svg>
     </a>
 
     <!-- Popup de Envio de Catálogo -->
     <div id="submission-popup" class="hidden fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center p-4 z-50 animate-fade-in">
-        <div class="bg-brand-surface rounded-2xl shadow-2xl p-8 max-w-lg w-full relative animate-slide-in-up">
+        <div class="bg-brand-surface rounded-2xl shadow-2xl p-6 sm:p-8 max-w-lg w-full relative animate-slide-in-up">
             <button id="close-submission-popup" class="absolute top-4 right-4 text-gray-400 hover:text-white">
                 <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
             </button>
@@ -265,7 +321,8 @@
                         <span id="file-label">Anexar arquivo do catálogo</span>
                     </label>
                     <input id="file-upload" type="file" class="hidden" accept="image/*">
-                    <div class="flex space-x-2">
+                    <p class="text-xs text-center text-brand-subtle">Dica: Para a prévia com IA, use uma imagem nítida e bem iluminada.</p>
+                    <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
                         <button type="submit" class="w-full bg-gray-600 hover:bg-gray-500 text-white font-bold py-3 px-4 rounded-lg transition-transform transform hover:scale-105">Enviar Manualmente</button>
                         <button type="button" id="ai-preview-button" disabled class="w-full bg-brand-primary hover:bg-orange-600 text-white font-bold py-3 px-4 rounded-lg transition-transform transform hover:scale-105 disabled:bg-gray-500 disabled:cursor-not-allowed flex items-center justify-center">
                             ✨ Ver Prévia com IA
@@ -413,7 +470,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (!response.ok) {
-            throw new Error(`API Error: ${response.statusText}`);
+            let errorBody = 'Could not read error body';
+            try {
+                errorBody = await response.json();
+            } catch (e) { /* Ignore if body is not JSON */ }
+            console.error("API Error Body:", errorBody);
+            throw new Error(`API Error: ${response.status} ${response.statusText}`);
         }
 
         const result = await response.json();
@@ -489,8 +551,18 @@ document.addEventListener('DOMContentLoaded', () => {
             aiStatus.textContent = "Esta é uma prévia de como seu catálogo pode ficar!";
         } catch (error) {
             console.error("Erro ao gerar prévia com IA:", error);
-            aiStatus.textContent = "Ocorreu um erro.";
+            aiStatus.textContent = "Ocorreu um erro ao gerar a prévia.";
             aiPreviewContent.innerHTML = '';
+            const errorMessageElement = aiPreviewError.querySelector('p');
+
+            if (error.message.includes("API Error")) {
+                errorMessageElement.textContent = "A IA não conseguiu processar a imagem. Tente uma imagem mais nítida ou com texto mais legível. Se o erro persistir, use o envio manual.";
+            } else if (error.message.includes("inválida ou vazia")) {
+                errorMessageElement.textContent = "A IA não encontrou itens válidos no catálogo. Verifique se a imagem está clara e tente novamente ou use o envio manual.";
+            } else {
+                errorMessageElement.textContent = "Não foi possível analisar a imagem. Por favor, tente uma imagem com maior qualidade ou use o envio manual.";
+            }
+            
             aiPreviewError.classList.remove('hidden');
         }
     });
